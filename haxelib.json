@@ -2,7 +2,7 @@
   "name": "heaps-piskel",
   "url": "https://github.com/adamen-ho/heaps-piskel",
   "license": "MIT",
-  "tags": ["piskel", "heaps", "parse"],
+  "tags": ["piskel", "heaps", "parser"],
   "description": ".piskel file parsing for the Heaps game framework.",
   "version": "1.0.0",
   "classPath": "src/",
