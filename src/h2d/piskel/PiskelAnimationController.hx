@@ -22,7 +22,7 @@ class PiskelAnimationController {
 
 	public function play(?name:String = "default") {
 		if (currentAnimation != null) {
-			anims.get(currentAnimation).pause();
+			anims.get(currentAnimation).pause = true;
 		}
 		var toPlay = anims.get(name);
 		if (toPlay == null)
@@ -34,7 +34,7 @@ class PiskelAnimationController {
 	public function pause() {
 		if (currentAnimation != null) {
 			var toPause = anims.get(currentAnimation);
-			toPause.pause();
+			toPause.pause = true;
 		}
 	}
 
