@@ -38,6 +38,7 @@ typedef PiskelFile = {
 
 class PiskelAnimatedSprite extends Object {
 	final _data:PiskelFile;
+	final _excluded:Array<String>;
 
 	var chunks:Array<Dynamic> = [];
 
@@ -51,15 +52,18 @@ class PiskelAnimatedSprite extends Object {
 
 	/**
 	 * @param filePath the filepath to the directory containg the piskel file.
+	 * @param excluded layers to exclude from the final sprite.
 	 */
-	public function new(filePath:String, ?parent:Object) {
+	public function new(filePath:String, ?excluded:Array<String>, ?parent:Object) {
 		super(parent);
 
 		if (!filePath.endsWith(".piskel"))
 			throw new haxe.Exception("Tried to load non-piskel file.");
 
 		var rawData = Res.load(filePath).toText();
+
 		this._data = cast Json.parse(rawData);
+		this._excluded = excluded;
 
 		makeLayers(this._data.piskel.layers);
 
@@ -69,6 +73,8 @@ class PiskelAnimatedSprite extends Object {
 	function makeLayers(layers:Array<String>) {
 		for (layer in layers) {
 			var toLayer:PiskelLayer = cast Json.parse(layer);
+
+			if (_excluded != null && _excluded.contains(toLayer.name)) continue;
 
 			for (chunk in toLayer.chunks) {
 				var rawImg:String = chunk.base64PNG;
@@ -122,7 +128,9 @@ class PiskelAnimatedSprite extends Object {
 		//  |  |  |  |  |  |  |  |
 		//  +--------------------+
 
-		for (i in 0...this.layers[0].frameCount) // we are guaranteed at least one layer, even if it's empty :)
+		if (layers.length == 0) return;
+
+		for (i in 0...this.layers[0].frameCount)
 		{
 			var drawObj:Object = new Object();
 			var drawTex:Texture = new Texture(this._data.piskel.width, this._data.piskel.height, [Target]);
