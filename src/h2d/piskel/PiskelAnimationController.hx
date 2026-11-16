@@ -22,13 +22,18 @@ class PiskelAnimationController {
 
 	public function play(?name:String = "default") {
 		if (currentAnimation != null) {
-			anims.get(currentAnimation).pause = true;
+			var curPlaying = anims.get(currentAnimation);
+			curPlaying.pause = true;
+			curPlaying.currentFrame = 0;
+			curPlaying.alpha = 0;
 		}
 		var toPlay = anims.get(name);
 		if (toPlay == null)
 			trace('No animation found with name $name!');
-		else
+		else {
 			toPlay.play(toPlay.frames);
+			toPlay.alpha = 1;
+		}
 	}
 
 	public function pause() {
@@ -38,7 +43,16 @@ class PiskelAnimationController {
 		}
 	}
 
-	public function registerAnimation(name:String, startIndex:Int, endIndex:Int):Void {
-		@:privateAccess anims.set(name, new Anim(frames.slice(startIndex, endIndex), this.parent._data.piskel.fps, this.parent));
+	public function registerAnimation(name:String, startIndex:Int, endIndex:Int, ?flipX:Bool = false, ?flipY:Bool = false):Void {
+		@:privateAccess var toAdd = new Anim(frames.slice(startIndex, endIndex), this._parent.data.piskel.fps, this.parent);
+		if (flipX)
+			toAdd.scaleX = -1;
+		if (flipY)
+			toAdd.scaleY = -1;
+
+		toAdd.alpha = 0;
+		toAdd.pause = true;
+
+		anims.set(name, toAdd);
 	}
 }
