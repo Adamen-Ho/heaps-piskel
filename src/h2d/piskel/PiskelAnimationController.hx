@@ -61,7 +61,7 @@ class PiskelAnimationController {
 	}
 
 	public function registerAnimation(name:String, startIndex:Int, endIndex:Int, ?flipX:Bool = false, ?flipY:Bool = false):Void {
-		@:privateAccess var toAdd = new Anim(frames.slice(startIndex, endIndex), this._parent.data.piskel.fps, this.parent);
+		@:privateAccess var toAdd = new Anim(frames.slice(startIndex, endIndex), this.parent._data.piskel.fps, this.parent);
 		if (flipX)
 			toAdd.scaleX = -1;
 		if (flipY)
