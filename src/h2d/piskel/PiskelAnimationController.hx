@@ -33,6 +33,8 @@ class PiskelAnimationController {
 		else {
 			toPlay.play(toPlay.frames);
 			toPlay.alpha = 1;
+			toPlay.currentFrame = 0;
+			toPlay.pause = false;
 		}
 	}
 
@@ -40,6 +42,21 @@ class PiskelAnimationController {
 		if (currentAnimation != null) {
 			var toPause = anims.get(currentAnimation);
 			toPause.pause = true;
+		}
+	}
+
+	public function resume() {
+		if (currentAnimation != null) {
+			var toResume = anims.get(currentAnimation);
+			toResume.pause = false;
+		}
+	}
+
+	public function stop() {
+		if (currentAnimation != null) {
+			var toStop = anims.get(currentAnimation);
+			toStop.pause = true;
+			toStop.currentFrame = 0;
 		}
 	}
 
