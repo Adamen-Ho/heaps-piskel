@@ -4,9 +4,9 @@
   "license": "MIT",
   "tags": ["piskel", "heaps", "parser"],
   "description": ".piskel file parsing for the Heaps game framework.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "classPath": "src/",
-  "releasenote": "Initial release.",
+  "releasenote": "Improving the animation controller and fixing multiple bugs.",
   "contributors": ["requazar"],
   "dependencies": {
     "heaps": ""
