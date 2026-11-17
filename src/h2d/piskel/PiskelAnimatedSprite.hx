@@ -28,7 +28,7 @@ typedef PiskelData = {
 	var height:Int;
 	var width:Int;
 	var layers:Array<String>;
-	var hiddenFrames:Array<Dynamic>;
+	var hiddenFrames:Array<Int>;
 }
 
 typedef PiskelFile = {
@@ -74,7 +74,8 @@ class PiskelAnimatedSprite extends Object {
 		for (layer in layers) {
 			var toLayer:PiskelLayer = cast Json.parse(layer);
 
-			if (_excluded != null && _excluded.contains(toLayer.name)) continue;
+			if (_excluded != null && _excluded.contains(toLayer.name))
+				continue;
 
 			for (chunk in toLayer.chunks) {
 				var rawImg:String = chunk.base64PNG;
@@ -108,6 +109,8 @@ class PiskelAnimatedSprite extends Object {
 			var img = layer.spritesheet;
 			var frames:Array<Tile> = [];
 			for (i in 0...layer.frameCount) {
+				if (_data.piskel.hiddenFrames.contains(i + 1))
+					continue;
 				frames.push(img.sub(0 + this._data.piskel.width * i, 0, this._data.piskel.width, this._data.piskel.height));
 			}
 
@@ -128,10 +131,10 @@ class PiskelAnimatedSprite extends Object {
 		//  |  |  |  |  |  |  |  |
 		//  +--------------------+
 
-		if (layers.length == 0) return;
+		if (layers.length == 0)
+			return;
 
-		for (i in 0...this.layers[0].frameCount)
-		{
+		for (i in 0...this.layers[0].frameCount) {
 			var drawObj:Object = new Object();
 			var drawTex:Texture = new Texture(this._data.piskel.width, this._data.piskel.height, [Target]);
 			for (timeline in layerFrames) {
