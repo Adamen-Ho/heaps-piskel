@@ -1,0 +1,10 @@
+-cp src
+-cp ../../src
+
+-lib heaps
+-lib format
+-lib hlsdl
+
+-main Main
+
+-hl ../../bin/hiddenFrames.hl

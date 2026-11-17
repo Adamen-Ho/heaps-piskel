@@ -109,8 +109,6 @@ class PiskelAnimatedSprite extends Object {
 			var img = layer.spritesheet;
 			var frames:Array<Tile> = [];
 			for (i in 0...layer.frameCount) {
-				if (_data.piskel.hiddenFrames.contains(i + 1))
-					continue;
 				frames.push(img.sub(0 + this._data.piskel.width * i, 0, this._data.piskel.width, this._data.piskel.height));
 			}
 
@@ -135,6 +133,8 @@ class PiskelAnimatedSprite extends Object {
 			return;
 
 		for (i in 0...this.layers[0].frameCount) {
+			if (_data.piskel.hiddenFrames.contains(i))
+				continue;
 			var drawObj:Object = new Object();
 			var drawTex:Texture = new Texture(this._data.piskel.width, this._data.piskel.height, [Target]);
 			for (timeline in layerFrames) {
