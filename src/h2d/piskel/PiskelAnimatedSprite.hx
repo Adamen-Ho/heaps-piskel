@@ -148,4 +148,15 @@ class PiskelAnimatedSprite extends Object {
 			this.frames.push(finalFrame);
 		}
 	}
+
+	/**
+	 * Get the length, in seconds, of an animation.
+	 * Useful when paired with libraries like `slide`.
+	 * @param name The name of the animation. If none is provided, uses master timeline.
+	 * @return The duration of the animation, in seconds.
+	**/
+	public function getAnimDuration(?name:String = "default"):Float {
+		var theAnim = anim.anims.get(name);
+		return theAnim.frames.length / theAnim.speed;
+	}
 }
